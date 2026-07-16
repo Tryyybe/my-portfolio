@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trybe · Social Media Manager & Content Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F6FB;
+    --card: #FFFFFF;
+    --ink: #1C1C1E;
+    --ink-soft: #6E6E73;
+    --line: #E9ECF3;
+
+    --blue: #0A84FF;
+    --blue-2: #64D2FF;
+    --purple: #AF52DE;
+    --pink: #FF375F;
+    --orange: #FF9F0A;
+    --green: #30D158;
+    --teal: #40C8E0;
+    --indigo: #5E5CE6;
+
+    --shadow-sm: 0 2px 10px rgba(28,28,30,0.05);
+    --shadow-md: 0 10px 30px rgba(28,28,30,0.08);
+    --shadow-lg: 0 20px 60px rgba(28,28,30,0.12);
+    --radius: 28px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    scroll-snap-type: y proximity;
+  }
+  h1,h2,h3,.display{
+    font-family:'Manrope',-apple-system,sans-serif;
+    letter-spacing:-0.02em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  section{scroll-snap-align:start;scroll-snap-stop:normal;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(244,246,251,0.72);
+    border-bottom:1px solid rgba(233,236,243,0.8);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{font-weight:800;font-size:17px;}
+  .nav-cta{
+    background:var(--ink);color:#fff;border:none;
+    padding:10px 20px;border-radius:100px;
+    font-family:'Inter';font-weight:600;font-size:14px;
+    cursor:pointer;text-decoration:none;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:100px 24px 90px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .blob{
+    position:absolute;border-radius:50%;
+    filter:blur(60px);
+    opacity:0.55;
+    z-index:0;
+    transition:transform 0.2s ease-out;
+  }
+  .blob1{width:420px;height:420px;background:radial-gradient(circle,var(--blue-2),var(--blue));top:-140px;left:-120px;}
+  .blob2{width:380px;height:380px;background:radial-gradient(circle,var(--pink),var(--purple));top:-100px;right:-140px;}
+  .blob3{width:320px;height:320px;background:radial-gradient(circle,var(--orange),var(--pink));bottom:-160px;left:35%;opacity:0.4;}
+
+  .hero-content{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+
+  /* MARQUEE */
+  .marquee{
+    position:relative;z-index:1;
+    width:100%;
+    overflow:hidden;
+    padding:10px 0;
+    margin-bottom:36px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  }
+  .marquee-track{
+    display:flex;width:max-content;
+    animation:marquee-scroll 22s linear infinite;
+    gap:48px;
+  }
+  .marquee-track span{
+    font-family:'Manrope';font-weight:700;font-size:14px;
+    letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;align-items:center;gap:48px;
+    white-space:nowrap;
+  }
+  .marquee-track span em{
+    font-style:normal;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  @keyframes marquee-scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{animation:none;}
+  }
+  .eyebrow{
+    display:inline-block;background:rgba(255,255,255,0.7);
+    border:1px solid var(--line);
+    padding:7px 16px;border-radius:100px;
+    font-size:13px;font-weight:600;color:var(--ink-soft);
+    margin-bottom:24px;
+    backdrop-filter:blur(10px);
+  }
+  .hero h1{
+    font-size:clamp(34px,5.6vw,54px);
+    font-weight:800;
+    margin:0 0 14px;
+    line-height:1.1;
+  }
+  .hero p.tagline{
+    font-size:clamp(17px,2.4vw,20px);
+    color:var(--ink-soft);
+    font-weight:500;
+    margin:0 0 44px;
+    max-width:560px;
+    margin-left:auto;margin-right:auto;
+  }
+
+  .stat-pills{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:14px;
+  }
+  .stat-pill{
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.9);
+    box-shadow:var(--shadow-md);
+    border-radius:22px;
+    padding:18px 26px;
+    min-width:150px;
+  }
+  .stat-pill .num{
+    font-family:'Manrope';font-weight:800;font-size:26px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .stat-pill .lbl{font-size:12.5px;color:var(--ink-soft);font-weight:600;margin-top:2px;}
+
+  /* SECTION generic */
+  section{padding:70px 0;}
+  .section-head{max-width:640px;margin:0 auto 44px;text-align:center;}
+  .section-head .kicker{
+    font-size:13px;font-weight:700;color:var(--blue);
+    text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(26px,4vw,34px);margin:0 0 12px;font-weight:800;}
+  .section-head p{color:var(--ink-soft);font-size:16px;line-height:1.6;margin:0;}
+
+  /* ABOUT */
+  .about-grid{
+    display:grid;grid-template-columns:180px 1fr;gap:36px;align-items:center;
+    max-width:760px;margin:0 auto;
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--line);
+    padding:40px;
+  }
+  @media (max-width:620px){.about-grid{grid-template-columns:1fr;text-align:center;}}
+  .about-photo{
+    width:150px;height:150px;border-radius:50%;
+    overflow:hidden;
+    margin:0 auto;
+    padding:4px;
+    background:linear-gradient(135deg,var(--blue),var(--purple),var(--pink));
+  }
+  .about-photo img{
+    width:100%;height:100%;object-fit:cover;border-radius:50%;
+    border:3px solid #fff;
+  }
+  .about-grid p{font-size:16.5px;line-height:1.75;color:#3A3A3C;margin:0;}
+
+  /* SKILLS */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto;}
+  .chip{
+    background:var(--card);border:1px solid var(--line);
+    padding:11px 20px;border-radius:100px;
+    font-size:14.5px;font-weight:600;
+    box-shadow:var(--shadow-sm);
+  }
+
+  /* NUMBERS WIDGET GRID */
+  .widget-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  }
+  @media (max-width:820px){.widget-grid{grid-template-columns:repeat(2,1fr);}}
+  .widget{
+    border-radius:24px;padding:26px 22px;
+    box-shadow:var(--shadow-md);
+    color:#fff;
+    min-height:130px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    position:relative;overflow:hidden;
+  }
+  .widget::after{
+    content:'';position:absolute;width:120px;height:120px;border-radius:50%;
+    background:rgba(255,255,255,0.15);top:-40px;right:-40px;
+  }
+  .widget .w-num{font-family:'Manrope';font-weight:800;font-size:28px;position:relative;z-index:1;}
+  .widget .w-lbl{font-size:13px;font-weight:600;opacity:0.92;position:relative;z-index:1;}
+  .w1{background:linear-gradient(135deg,var(--blue),var(--blue-2));}
+  .w2{background:linear-gradient(135deg,var(--green),#0FB981);}
+  .w3{background:linear-gradient(135deg,var(--purple),var(--pink));}
+  .w4{background:linear-gradient(135deg,var(--orange),var(--pink));}
+
+  /* CASE STUDIES */
+  .case-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:22px;
+  }
+  @media (max-width:760px){.case-grid{grid-template-columns:1fr;}}
+  .case-card{
+    background:var(--card);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow-sm);
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .case-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+  .case-head{
+    padding:22px 26px;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .case-head h3{margin:0;font-size:19px;font-weight:800;}
+  .case-tag{
+    font-size:11.5px;font-weight:700;background:rgba(255,255,255,0.25);
+    padding:4px 11px;border-radius:100px;
+  }
+  .case-body{padding:22px 26px 26px;}
+  .case-body p{margin:0 0 18px;font-size:15px;line-height:1.65;color:#3A3A3C;}
+  .proof-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .proof-shot{
+    position:relative;
+    flex:1;min-width:110px;
+    border-radius:16px;overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow-sm);
+    cursor:zoom-in;
+  }
+  .proof-shot img{width:100%;height:150px;object-fit:cover;object-position:top;}
+  .zoom-badge{
+    position:absolute;bottom:8px;right:8px;
+    width:28px;height:28px;border-radius:50%;
+    background:rgba(0,0,0,0.55);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:14px;
+    backdrop-filter:blur(4px);
+  }
+  .proof-video{
+    border-radius:16px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:var(--shadow-sm);
+  }
+  .proof-video video{width:100%;display:block;max-height:340px;}
+  .ch1{background:linear-gradient(135deg,var(--blue),var(--teal));}
+  .ch2{background:linear-gradient(135deg,var(--purple),var(--pink));}
+  .ch3{background:linear-gradient(135deg,var(--orange),var(--pink));}
+  .ch4{background:linear-gradient(135deg,var(--green),var(--teal));}
+  .ch5{background:linear-gradient(135deg,var(--indigo),var(--purple));}
+  .ch6{background:linear-gradient(135deg,var(--teal),var(--blue));}
+
+  /* MONETIZATION BANNER */
+  .money-banner{
+    border-radius:32px;
+    background:linear-gradient(120deg,var(--blue) 0%, var(--purple) 55%, var(--pink) 100%);
+    padding:56px 40px;
+    text-align:center;color:#fff;
+    box-shadow:var(--shadow-lg);
+    position:relative;overflow:hidden;
+  }
+  .money-banner::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 40%);
+  }
+  .money-banner .big{
+    font-family:'Manrope';font-weight:800;font-size:clamp(40px,7vw,64px);
+    position:relative;z-index:1;
+  }
+  .money-banner p{
+    max-width:480px;margin:10px auto 0;font-size:15.5px;
+    opacity:0.95;position:relative;z-index:1;line-height:1.6;
+  }
+
+  /* GALLERY */
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  @media (max-width:760px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+  .gallery-item{
+    position:relative;
+    border-radius:20px;overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--line);
+    aspect-ratio:1/1;
+    cursor:zoom-in;
+  }
+  .gallery-item img{width:100%;height:100%;object-fit:cover;object-position:top;}
+
+  /* PLATFORMS */
+  .platform-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  @media (max-width:760px){.platform-grid{grid-template-columns:repeat(2,1fr);}}
+  .platform-card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:22px;padding:26px 18px;text-align:center;
+    box-shadow:var(--shadow-sm);
+    text-decoration:none;
+    display:block;
+    transition:transform .2s ease;
+  }
+  .platform-card.linkable:hover{transform:translateY(-3px);}
+  .platform-card .p-icon{
+    width:46px;height:46px;border-radius:14px;margin:0 auto 14px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;color:#fff;font-family:'Manrope';font-size:16px;
+  }
+  .platform-card h4{margin:0 0 6px;font-size:15px;font-weight:800;color:var(--ink);}
+  .platform-card p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
+
+  /* CONTACT */
+  .contact-card{
+    text-align:center;
+    background:linear-gradient(135deg,#1C1C1E,#2C2C2E);
+    border-radius:32px;padding:64px 32px;
+    color:#fff;
+    box-shadow:var(--shadow-lg);
+  }
+  .contact-card h2{font-size:clamp(26px,4vw,36px);margin:0 0 12px;font-weight:800;}
+  .contact-card p{color:rgba(255,255,255,0.7);font-size:15.5px;margin:0 0 30px;}
+  .contact-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .contact-btn{
+    display:inline-block;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;text-decoration:none;
+    padding:16px 36px;border-radius:100px;
+    font-weight:700;font-size:15px;
+    box-shadow:0 10px 30px rgba(10,132,255,0.35);
+    transition:transform .2s ease;
+  }
+  .contact-btn:hover{transform:translateY(-2px);}
+  .contact-btn.secondary{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.25);
+    box-shadow:none;
+  }
+  .contact-btn.whatsapp{
+    background:#25D366;
+    box-shadow:0 10px 30px rgba(37,211,102,0.35);
+    border:none;
+  }
+  .contact-btn.instagram{
+    background:linear-gradient(135deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5);
+    box-shadow:0 10px 30px rgba(214,41,118,0.35);
+    border:none;
+  }
+
+  footer{text-align:center;padding:30px 24px;color:#9AA0AC;font-size:13px;}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.show{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;scroll-snap-type:none;}
+  }
+
+  /* LIGHTBOX */
+  .lightbox{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(10,10,12,0.9);
+    backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;
+    padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:100%;max-height:88vh;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+  .lightbox-close{
+    position:absolute;top:20px;right:24px;
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(255,255,255,0.12);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;cursor:pointer;border:none;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Trybe</div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span><em>Account Growth</em> ✦ Content Strategy ✦ <em>Monetization</em> ✦ Real Results ✦ <em>Account Growth</em> ✦ Content Strategy ✦ <em>Monetization</em> ✦ Real Results ✦</span>
+      <span><em>Account Growth</em> ✦ Content Strategy ✦ <em>Monetization</em> ✦ Real Results ✦ <em>Account Growth</em> ✦ Content Strategy ✦ <em>Monetization</em> ✦ Real Results ✦</span>
+    </div>
+  </div>
+  <div class="hero-content">
+    <span class="eyebrow">Social Media Manager & Content Strategist</span>
+    <h1>I turn social media accounts into audiences that earn, and buy from you.</h1>
+    <p class="tagline">Six accounts built and managed from the ground up: real growth, real revenue, real proof.</p>
+    <div class="stat-pills">
+      <div class="stat-pill"><div class="num">890K+</div><div class="lbl">Followers Grown</div></div>
+      <div class="stat-pill"><div class="num">$28K+</div><div class="lbl">Earned in Monetization</div></div>
+      <div class="stat-pill"><div class="num">200M+</div><div class="lbl">Views in a Single Month</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">About</div>
+      <h2>Content that grows, and grows into revenue</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-photo"><img src="images/photo1.jpeg" alt="Trybe portrait"></div>
+      <p>I build and grow social media accounts from zero: writing content, growing audiences, and turning that growth into revenue. I've grown accounts past half a million followers combined and earned over $28,000 through monetization. I also follow and create content around crypto, Web3, business, and tech, and I'm comfortable managing brand and celebrity accounts as well.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Core Skills</div>
+      <h2>What My Team and I Bring to Your Account</h2>
+    </div>
+    <div class="chip-row reveal">
+      <div class="chip">Content Writing &amp; Strategy</div>
+      <div class="chip">Account Growth</div>
+      <div class="chip">Account Monetization</div>
+      <div class="chip">Paid Ads</div>
+      <div class="chip">Community Engagement</div>
+      <div class="chip">Graphic Design</div>
+      <div class="chip">Video Editing</div>
+      <div class="chip">Cross-Platform Content (Facebook, X, TikTok, Instagram, LinkedIn, Telegram)</div>
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">By The Numbers</div>
+      <h2>Proof at a glance</h2>
+    </div>
+    <div class="widget-grid reveal">
+      <div class="widget w1"><div class="w-num">890K+</div><div class="w-lbl">Total Followers Grown</div></div>
+      <div class="widget w2"><div class="w-num">$28K+</div><div class="w-lbl">Total Earnings Generated</div></div>
+      <div class="widget w3"><div class="w-num">6</div><div class="w-lbl">Accounts Built or Managed</div></div>
+      <div class="widget w4"><div class="w-num">200M+</div><div class="w-lbl">Views in a Single Month</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="case-studies">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Case Studies</div>
+      <h2>The accounts, the numbers, the results</h2>
+    </div>
+    <div class="case-grid">
+
+      <div class="case-card reveal">
+        <div class="case-head ch1"><h3>Music Pulse</h3><span class="case-tag">Active</span></div>
+        <div class="case-body">
+          <p>0 to 152K followers in just over a year. Multiple posts passed 10 million views, with some earning $500–$700 each. Over $15,000 earned total.</p>
+          <div class="proof-row">
+            <div class="proof-shot lb-trigger"><img src="images/photo2.jpeg" alt="Music Pulse 2026 earnings"><span class="zoom-badge">⤢</span></div>
+            <div class="proof-shot lb-trigger"><img src="images/photo3.jpeg" alt="Music Pulse 2025 earnings"><span class="zoom-badge">⤢</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-head ch2"><h3>Music Trybe</h3><span class="case-tag">New Ownership</span></div>
+        <div class="case-body">
+          <p>0 to 150K+ followers in 1 year 3 months. Regular 10 million+ view posts, one hitting $1,500+ on its own. Over $9,000 earned total.</p>
+          <div class="proof-video">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="videos/video1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-head ch3"><h3>Music Trend</h3><span class="case-tag">Sold</span></div>
+        <div class="case-body">
+          <p>0 to 160K+ followers in 6 months. One post hit 150 million views; the account passed 200 million views in a single month. Not monetized, but proof of viral reach.</p>
+          <div class="proof-row">
+            <div class="proof-shot lb-trigger"><img src="images/photo4.jpeg" alt="Music Trend top content views"><span class="zoom-badge">⤢</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-head ch4"><h3>Brity Trends</h3><span class="case-tag">Fastest Build</span></div>
+        <div class="case-body">
+          <p>0 to 80K+ followers in 2 months, the fastest build to date. Posts regularly hit 15–30 million views. Over $4,000 earned in a short window.</p>
+          <div class="proof-video">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="videos/video2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-head ch5"><h3>Entertainment TV</h3><span class="case-tag">Sold</span></div>
+        <div class="case-body">
+          <p>Built from 0 to 350K+ followers over 2 years. Eventually sold, proof that the accounts I build carry real value beyond just follower count.</p>
+          <div class="proof-row">
+            <div class="proof-shot lb-trigger"><img src="images/photo5.jpeg" alt="Entertainment TV profile"><span class="zoom-badge">⤢</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-head ch6"><h3>Elbrity &amp; Hip Hop Crown</h3><span class="case-tag">Team Managed</span></div>
+        <div class="case-body">
+          <p>Elbrity: 9K+ followers, run directly, earned $300+ between May and June. Hip Hop Crown: 11K+ followers, managed through a team member I personally hired and trained. Both show active, ongoing growth work.</p>
+          <div class="proof-video" style="margin-bottom:10px;">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="videos/video3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="proof-row">
+            <div class="proof-shot lb-trigger"><img src="images/photo6.jpeg" alt="Hip Hop Crown profile"><span class="zoom-badge">⤢</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="monetization">
+  <div class="wrap">
+    <div class="money-banner reveal">
+      <div class="big">$28,000+</div>
+      <p>Earned across six accounts through professional account management: consistent content, timing, high engagement, and an understanding of what makes content go viral.</p>
+    </div>
+  </div>
+</section>
+
+<section id="samples">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Content Samples</div>
+      <h2>A look at the content itself</h2>
+      <p>Best-performing posts and quote-image graphics across these accounts. Tap any image to view it full-size.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item lb-trigger"><img src="images/photo7.jpeg" alt="High-engagement post — Ebrity"><span class="zoom-badge">⤢</span></div>
+      <div class="gallery-item lb-trigger"><img src="images/photo8.jpeg" alt="High-engagement post — Music Trend"><span class="zoom-badge">⤢</span></div>
+      <div class="gallery-item lb-trigger"><img src="images/photo9.jpeg" alt="Viral post screenshot"><span class="zoom-badge">⤢</span></div>
+      <div class="gallery-item lb-trigger"><img src="images/photo10.jpeg" alt="Quote-image post — Hip Hop Crown"><span class="zoom-badge">⤢</span></div>
+      <div class="gallery-item lb-trigger"><img src="images/photo11.jpeg" alt="Quote-image post — Hip Hop Crown"><span class="zoom-badge">⤢</span></div>
+      <div class="gallery-item lb-trigger"><img src="images/photo12.jpeg" alt="Quote-image post"><span class="zoom-badge">⤢</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="platforms">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Platforms</div>
+      <h2>Social Platforms I Manage For You</h2>
+    </div>
+    <div class="platform-grid reveal">
+      <div class="platform-card">
+        <div class="p-icon" style="background:linear-gradient(135deg,var(--blue),var(--blue-2));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.45 2.91h-2.33V22c4.78-.79 8.44-4.94 8.44-9.94Z" fill="white"/></svg>
+        </div>
+        <h4>Facebook</h4>
+        <p>Account growth, content strategy, paid ads, monetization</p>
+      </div>
+      <div class="platform-card">
+        <div class="p-icon" style="background:linear-gradient(135deg,#1C1C1E,#3A3A3C);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18.9 1H22l-6.8 7.77L23.2 23h-6.3l-4.9-6.4L6.3 23H1.2l7.3-8.3L1 1h6.5l4.4 5.8L18.9 1Zm-1.1 20h1.7L7 3H5.2l12.6 18Z" fill="white"/></svg>
+        </div>
+        <h4>X (Twitter)</h4>
+        <p>Content strategy, growth, and monetization</p>
+      </div>
+      <div class="platform-card">
+        <div class="p-icon" style="background:#000;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M16.5 3c.4 2.1 2 3.7 4.1 4v3.2c-1.5.1-2.9-.3-4.1-1.1v6.4c0 3.5-2.9 6.5-6.4 6.5S3.6 18 3.6 14.5 6.5 8 10 8c.4 0 .8 0 1.1.1v3.4c-.4-.1-.7-.2-1.1-.2-1.7 0-3.1 1.4-3.1 3.1S8.3 17.5 10 17.5s3.1-1.4 3.1-3.1V3h3.4Z" fill="#25F4EE"/>
+            <path d="M15.7 3c.4 2.1 2 3.7 4.1 4v3.2c-1.5.1-2.9-.3-4.1-1.1v6.4c0 3.5-2.9 6.5-6.4 6.5S2.8 18 2.8 14.5 5.7 8 9.2 8c.4 0 .8 0 1.1.1v3.4c-.4-.1-.7-.2-1.1-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h3.4Z" fill="#FE2C55" opacity="0.75"/>
+          </svg>
+        </div>
+        <h4>TikTok</h4>
+        <p>Content strategy, growth, and monetization</p>
+      </div>
+      <a class="platform-card linkable" href="https://www.instagram.com/trrrybe?igsh=dGg1ZGR5YzMyM2po" target="_blank" rel="noopener">
+        <div class="p-icon" style="background:linear-gradient(135deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="white" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.2" fill="white"/></svg>
+        </div>
+        <h4>Instagram</h4>
+        <p>Content strategy and growth</p>
+      </a>
+      <div class="platform-card">
+        <div class="p-icon" style="background:#0A66C2;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9Z" fill="white"/></svg>
+        </div>
+        <h4>LinkedIn</h4>
+        <p>Content strategy, growth, and visibility</p>
+      </div>
+      <div class="platform-card">
+        <div class="p-icon" style="background:linear-gradient(135deg,#2AABEE,#229ED9);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 4.4 18.8 20c-.24 1.07-.86 1.33-1.75.83l-4.83-3.56-2.33 2.24c-.26.26-.48.48-.97.48l.35-4.94 8.99-8.13c.39-.35-.09-.54-.6-.2L6.7 13.3l-4.83-1.5c-1.05-.33-1.07-1.05.22-1.55L20.6 3.14c.87-.32 1.63.2 1.4 1.26Z" fill="white"/></svg>
+        </div>
+        <h4>Telegram</h4>
+        <p>Community management and growth</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <h2>Let's grow your audience.</h2>
+      <p>Available for social media management, content strategy, and account growth consulting.</p>
+      <div class="contact-actions">
+        <a class="contact-btn" href="mailto:genpurpose92@gmail.com">Email Me</a>
+        <a class="contact-btn instagram" href="https://www.instagram.com/trrrybe?igsh=dGg1ZGR5YzMyM2po" target="_blank" rel="noopener">Instagram</a>
+        <a class="contact-btn whatsapp" href="https://wa.me/23409053204931" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Trybe · Social Media Manager & Content Strategist</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="Full view">
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  reveals.forEach(el=>io.observe(el));
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.lb-trigger img').forEach(img=>{
+    img.addEventListener('click', ()=>{
+      lightboxImg.src = img.src;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', ()=>lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) lightbox.classList.remove('open'); });
+
+  // Gentle parallax on hero blobs for a soft, premium feel
+  document.addEventListener('mousemove', (e)=>{
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    document.querySelectorAll('.blob').forEach((b,i)=>{
+      const factor = (i+1)*0.6;
+      b.style.transform = `translate(${x*factor}px, ${y*factor}px)`;
+    });
+  });
+</script>
+
+</body>
+</html>
